@@ -1,0 +1,153 @@
+
+:root {
+    --image-width-full: 300px; 
+    --image-width-eyes: 200px; 
+    --image-height: auto; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F5DC; 
+    color: #8B0000; 
+    margin: 0;
+    padding: 0;
+}
+
+
+#authorsContainer {
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+
+.authorBlock {
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #8B0000; 
+    background-color: #FFF5F5; 
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.authorPhoto {
+    height: var(--image-height);
+    border: 1px solid #8B0000; 
+    transition: max-width 1s ease-in-out; 
+}
+
+
+.authorPhoto.full {
+    max-width: var(--image-width-full);
+}
+
+
+.authorPhoto.eyes {
+    max-width: var(--image-width-eyes);
+}
+
+
+.toggleButton {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #8B0000; 
+    color: #fff; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 1s;
+}
+
+.toggleButton:hover {
+    background-color: #B22222; 
+}
+
+
+.resultIcon {
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+    color: #8B0000; 
+}
+
+
+#scoreBlock {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#finalScore {
+    font-size: 24px;
+    font-weight: bold;
+    color: #8B0000; 
+    background-color: #FFF5F5; 
+    border: 2px solid #8B0000; 
+    padding: 20px;
+    display: none;
+    animation: fadeIn 1s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(2);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.author-choices button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #8B0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 1s;
+}
+
+.author-choices button:hover {
+    background-color: #B22222; 
+}
+
+.authorPhoto {
+    transition: opacity 1s ease-in-out;
+    width: 100%;
+    height: auto;
+}
+
+.authorPhoto.eyes {
+    opacity: 1;
+}
+
+.authorPhoto.full {
+    opacity: 1 ;
+}
+
+
+.authorPhoto.full.visible {
+    opacity: 1;
+}
+.toggleButton {
+    transition: opacity 1s ease-in-out;
+}
+.toggleButton.show {
+    opacity: 1;
+}
+.toggleButton.hide {
+    opacity: 1;
+}
+
+
+
+a:hover,a
+{
+    text-decoration: none;
+    color: maroon;
+}

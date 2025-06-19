@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Беларускія аўтары</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <style>
+    /* Общие стили */
+    body {
+      margin: 0;
+      font-family: 'Merriweather', serif;
+      background-color: #ffffff;
+      color: #1a1a1a;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c2c54;
+    }
+    #authors-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .author-card {
+      background-color: #f5f3ef;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .author-card:hover {
+      transform: scale(1.03);
+      z-index: 2;
+    }
+    .author-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .author-card h3 {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #2c2c54;
+    }
+    .more-link {
+      display: inline-block;
+      margin-top: 8px;
+      text-decoration: none;
+      color: #800020;
+      font-weight: bold;
+    }
+    .more-link:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+      #authors-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      #authors-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Кнопка на главную */
+    .home-btn {
+      position: fixed;
+      right: 10px;
+      top: 10px;
+      background-color: #800020;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s, opacity 0.3s;
+      z-index: 1100;
+    }
+    .home-btn:hover {
+      background-color: #660017;
+    }
+
+    /* Боковая панель */
+    #menu-toggle {
+      display: none;
+    }
+    .menu-btn {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      background-color: #800020;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s, opacity 0.3s;
+      z-index: 1100;
+    }
+    .menu-btn:hover {
+      background-color: #660017;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100vh;
+      background: linear-gradient(to bottom, #2c2c54, #1a1a3c);
+      padding: 25px;
+      border-radius: 0 15px 15px 0;
+      box-shadow: 3px 0 15px rgba(0,0,0,0.3);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow-y: auto;
+      z-index: 2000;
+      
+    }
+    .sidebar a:last-child {
+  margin-bottom: 40px; /* Даём больше места последнему автору */
+}
+
+
+    #menu-toggle:checked ~ .sidebar {
+      transform: translateX(0);
+    }
+
+    .sidebar h2 {
+      color: white;
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .sidebar a {
+      display: block;
+      width: 100%;
+      padding: 12px 15px;
+      color: #fff;
+      font-size: 18px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      align-self: flex-end;
+      margin-bottom: 15px;
+      transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+      color: lightgray;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Кнопка на главную -->
+  <button class="home-btn" onclick="window.location.href='index.html'">🏠 На галоўную</button>
+
+  <!-- Меню -->
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="menu-btn">Аўтары</label>
+  <div class="sidebar">
+    <label for="menu-toggle" class="close-btn">×</label>
+    <h2>Беларускія аўтары</h2>
+    <div id="menu-links"></div>
+  </div>
+
+  <h1>Беларускія аўтары</h1>
+  <div id="authors-container"></div>
+
+
+  <script>
+    let lastScrollTop = 0;
+    const menuButton = document.querySelector(".menu-btn");
+    const homeButton = document.querySelector(".home-btn");
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop) {
+        menuButton.style.opacity = "0";
+        menuButton.style.pointerEvents = "none";
+        homeButton.style.opacity = "0";
+        homeButton.style.pointerEvents = "none";
+      } else {
+        menuButton.style.opacity = "1";
+        menuButton.style.pointerEvents = "auto";
+        homeButton.style.opacity = "1";
+        homeButton.style.pointerEvents = "auto";
+      }
+      lastScrollTop = currentScroll;
+    });
+
+    const authorLinks = {
+           "Францішак Багушэвіч": "https://be.wikipedia.org/wiki/%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D1%96%D1%88%D0%B0%D0%BA_%D0%91%D0%B0%D0%B3%D1%83%D1%88%D1%8D%D0%B2%D1%96%D1%87",
+    "Цётка": "https://be.wikipedia.org/wiki/%D0%90%D0%BB%D0%B0%D1%96%D0%B7%D0%B0_%D0%9F%D0%B0%D1%88%D0%BA%D0%B5%D0%B2%D1%96%D1%87",
+    "Ядвігін Ш.": "http://be.wikipedia.org/wiki/%D0%AF%D0%B4%D0%B2%D1%96%D0%B3%D1%96%D0%BD_%D0%A8.",
+    "Янка Купала": "https://be.wikipedia.org/wiki/%D0%AF%D0%BD%D0%BA%D0%B0_%D0%9A%D1%83%D0%BF%D0%B0%D0%BB%D0%B0а",
+    "Якуб Колас": "https://be.wikipedia.org/wiki/%D0%AF%D0%BA%D1%83%D0%B1_%D0%9A%D0%BE%D0%BB%D0%B0%D1%81",
+    "Максім Багдановіч": "https://be-tarask.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BA%D1%81%D1%96%D0%BC_%D0%91%D0%B0%D0%B3%D0%B4%D0%B0%D0%BD%D0%BE%D0%B2%D1%96%D1%87",
+    "Алесь Гарун": "https://be-tarask.wikipedia.org/wiki/%D0%90%D0%BB%D0%B5%D1%81%D1%8C_%D0%93%D0%B0%D1%80%D1%83%D0%BD",
+    "Максім Гарэцкі": "https://be-tarask.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BA%D1%81%D1%96%D0%BC_%D0%93%D0%B0%D1%80%D1%8D%D1%86%D0%BA%D1%96",
+    "Змітрок Бядуля": "https://be.wikipedia.org/wiki/%D0%97%D0%BC%D1%96%D1%82%D1%80%D0%BE%D0%BA_%D0%91%D1%8F%D0%B4%D1%83%D0%BB%D1%8F",
+    "Уладзімір Дубоўка": "https://be.wikipedia.org/wiki/%D0%A3%D0%BB%D0%B0%D0%B4%D0%B7%D1%96%D0%BC%D1%96%D1%80_%D0%94%D1%83%D0%B1%D0%BE%D1%9E%D0%BA%D0%B0",
+    "Кандрат Крапіва": "https://be.wikipedia.org/wiki/%D0%9A%D0%B0%D0%BD%D0%B4%D1%80%D0%B0%D1%82_%D0%9A%D1%80%D0%B0%D0%BF%D1%96%D0%B2%D0%B0",
+    "Міхась Зарэцкі": "https://be.wikipedia.org/wiki/%D0%9C%D1%96%D1%85%D0%B0%D1%81%D1%8C_%D0%97%D0%B0%D1%80%D1%8D%D1%86%D0%BA%D1%96",
+    "Пятрусь Броўка": "https://be.wikipedia.org/wiki/%D0%9F%D1%8F%D1%82%D1%80%D1%83%D1%81%D1%8C_%D0%91%D1%80%D0%BE%D1%9E%D0%BA%D0%B0",
+    "Аркадзь Куляшоў": "https://be-tarask.wikipedia.org/wiki/%D0%90%D1%80%D0%BA%D0%B0%D0%B4%D0%B7%D1%8C_%D0%9A%D1%83%D0%BB%D1%8F%D1%88%D0%BE%D1%9E",
+    "Максім Танк": "https://be-tarask.wikipedia.org/wiki/%D0%9C%D0%B0%D0%BA%D1%81%D1%96%D0%BC_%D0%A2%D0%B0%D0%BD%D0%BA",
+    "Кузьма Чорны": "https://be-tarask.wikipedia.org/wiki/%D0%9A%D1%83%D0%B7%D1%8C%D0%BC%D0%B0_%D0%A7%D0%BE%D1%80%D0%BD%D1%8B",
+    "Пімен Панчанка": "https://be.wikipedia.org/wiki/%D0%9F%D1%96%D0%BC%D0%B5%D0%BD_%D0%9F%D0%B0%D0%BD%D1%87%D0%B0%D0%BD%D0%BA%D0%B0",
+    "Іван Мележ": "https://be.wikipedia.org/wiki/%D0%86%D0%B2%D0%B0%D0%BD_%D0%9C%D0%B5%D0%BB%D0%B5%D0%B6",
+    "Іван Шамякін": "https://be-tarask.wikipedia.org/wiki/%D0%86%D0%B2%D0%B0%D0%BD_%D0%A8%D0%B0%D0%BC%D1%8F%D0%BA%D1%96%D0%BD",
+    "Андрэй Макаёнак": "https://be.wikipedia.org/wiki/%D0%90%D0%BD%D0%B4%D1%80%D1%8D%D0%B9_%D0%9C%D0%B0%D0%BA%D0%B0%D1%91%D0%BD%D0%B0%D0%BA",
+    "Янка Брыль": "https://be.wikipedia.org/wiki/%D0%AF%D0%BD%D0%BA%D0%B0_%D0%91%D1%80%D1%8B%D0%BB%D1%8C",
+    "Васіль Быкаў": "https://be.wikipedia.org/wiki/%D0%92%D0%B0%D1%81%D1%96%D0%BB%D1%8C_%D0%91%D1%8B%D0%BA%D0%B0%D1%9E",
+    "Уладзімір Караткевіч": "https://be.wikipedia.org/wiki/%D0%A3%D0%BB%D0%B0%D0%B4%D0%B7%D1%96%D0%BC%D1%96%D1%80_%D0%9A%D0%B0%D1%80%D0%B0%D1%82%D0%BA%D0%B5%D0%B2%D1%96%D1%87",
+    "Міхась Стральцоў": "https://be.wikipedia.org/wiki/%D0%9C%D1%96%D1%85%D0%B0%D1%81%D1%8C_%D0%A1%D1%82%D1%80%D0%B0%D0%BB%D1%8C%D1%86%D0%BE%D1%9E",
+    "Ніл Гілевіч": "https://be-tarask.wikipedia.org/wiki/%D0%9D%D1%96%D0%BB_%D0%93%D1%96%D0%BB%D0%B5%D0%B2%D1%96%D1%87",
+    "Іван Чыгрынаў": "https://be.wikipedia.org/wiki/%D0%86%D0%B2%D0%B0%D0%BD_%D0%A7%D1%8B%D0%B3%D1%80%D1%8B%D0%BD%D0%B0%D1%9E",
+    "Іван Навуменка": "https://be.wikipedia.org/wiki/%D0%86%D0%B2%D0%B0%D0%BD_%D0%9D%D0%B0%D0%B2%D1%83%D0%BC%D0%B5%D0%BD%D0%BA%D0%B0",
+    "Рыгор Барадулін": "https://be.wikipedia.org/wiki/%D0%A0%D1%8B%D0%B3%D0%BE%D1%80_%D0%91%D0%B0%D1%80%D0%B0%D0%B4%D1%83%D0%BB%D1%96%D0%BD",
+    "Алесь Разанаў": "https://be.wikipedia.org/wiki/%D0%90%D0%BB%D0%B5%D1%81%D1%8C_%D0%A0%D0%B0%D0%B7%D0%B0%D0%BD%D0%B0%D1%9E",
+    "Георгій Марчук": "https://be.wikipedia.org/wiki/%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D1%96%D0%B9_%D0%9C%D0%B0%D1%80%D1%87%D1%83%D0%BA",
+    "Аляксей Дудараў": "https://be.wikipedia.org/wiki/%D0%90%D0%BB%D1%8F%D0%BA%D1%81%D0%B5%D0%B9_%D0%94%D1%83%D0%B4%D0%B0%D1%80%D0%B0%D1%9E",
+    "Міхась Башлакоў": "https://be.wikipedia.org/wiki/%D0%9C%D1%96%D1%85%D0%B0%D1%81%D1%8C_%D0%91%D0%B0%D1%88%D0%BB%D0%B0%D0%BA%D0%BE%D1%9E"
+
+
+    };
+
+    function renderAuthors() {
+      const container = document.getElementById("authors-container");
+      for (let author in authorLinks) {
+        const card = document.createElement("div");
+        card.className = "author-card";
+        card.innerHTML = `<img src="img/full/${author}.jpg" alt="${author}"><h3>${author}</h3>
+          <a href="${authorLinks[author]}" target="_blank" class="more-link">Чытаць пра аўтара</a>`;
+        container.appendChild(card);
+      }
+    }
+
+    function renderMenu() {
+      const menuContainer = document.getElementById("menu-links");
+      for (let author in authorLinks) {
+        const menuItem = document.createElement("a");
+        menuItem.href = authorLinks[author];
+        menuItem.target = "_blank";
+        menuItem.textContent = author;
+        menuContainer.appendChild(menuItem);
+      }
+    }
+
+    renderAuthors();
+    renderMenu();
+  </script>
+</body>
+</html>

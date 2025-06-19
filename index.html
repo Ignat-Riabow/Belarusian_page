@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+    background-image: url('img/background1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.main-link {
+    padding: 15px 30px;
+    font-size: 80px;
+    text-decoration: none;
+    background-color: rgba(0, 128, 0, 0.6); /* Зеленый с прозрачностью */
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.main-link:hover {
+    background-color: rgba(0, 128, 0, 0.8); /* При наведении уменьшаем прозрачность */
+}
+
+@media (max-width: 768px) {
+    body {
+        background-image: url('/img/background2.jpg');
+    }
+
+    .main-link{
+    font-size: 50px;
+    text-align: center;
+    }
+}
+
+    </style>
+    <a href="next.html" class="main-link">Лiтаратурная старонка</a>
+</body>
+</html>

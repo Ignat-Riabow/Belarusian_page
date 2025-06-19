@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Функцыянальнасць сайта</title>
+    <style>
+ body {
+    background-image: url('/img/background1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(0, 128, 0, 0.7);
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.section {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+    body {
+        background-image: url('/img/background2.jpg');
+    }
+
+    .container {
+        font-size: 16px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        font-size: 14px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .section {
+        text-align: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Функцыянальнасць сайта</h1>
+
+        <div class="section">
+            <h2>Галоўная старонка</h2>
+            <p>Змяшчае апісанне праекта, кнопку пераходу на Вікіпедыю для азнаямлення з аўтарамі, а таксама спасылку на тэст.</p>
+        </div>
+
+        <div class="section">
+            <h2>Старонка тэсту</h2>
+            <p>Карыстальнік павінен вызначыць аўтара па вачах, выбіраючы з трох варыянтаў.</p>
+            <ul>
+                <li>Правільны адказ: з'яўляецца ✅ галачка.</li>
+                <li>Няправільны адказ: ❌ крыжык.</li>
+                <li>Спасылкі на аўтараў вядуць на Вікіпедыю.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Падлік вынікаў</h2>
+            <p>Пасля завяршэння тэсту справа ад фота адлюстроўваюцца ✅ або ❌, а ў канцы паказваецца колькасць правільных адказаў.</p>
+        </div>
+
+        <a href="next.html" class="button">Вярнуца назад</a>
+        <a href="authors_game.html" class="button">Прайсцi тэст</a>
+        <a href="authors.html" class="button">Аўтары</a>
+    </div>
+
+</body>
+</html>

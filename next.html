@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор страницы</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        body {
+    background-image: url('img/background1.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    background: rgba(0, 128, 0, 0.6);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.link {
+    padding: 15px 30px;
+    font-size: 38px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.link:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+    body {
+        background-image: url('/img/background2.jpg');
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .link {
+        font-size: 28px;
+        padding: 12px 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+
+    .link {
+        font-size: 22px;
+        padding: 10px 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+
+    </style>
+    <div class="container">
+        <h1>Выберыце раздзел</h1>
+        <nav>
+            <a href="website.html" class="link">Пра сайт</a>
+            <a href="authors.html" class="link">Аўтары</a>
+            <a href="authors_game.html" class="link">Прайсцi тэст</a>
+        </nav>
+    </div>
+</body>
+</html>
